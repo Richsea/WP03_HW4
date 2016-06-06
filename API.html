@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>HTML5 API 실습</title>
+      <link rel="stylesheet" type="text/css" href="API.css">
+   </head>
+   <body>
+      <img id="target1" src = "new.jpg" draggable="true" ondragstart="drag(event)">
+      <img id="target2" src = "new2.png" draggable="true" ondragstart="drag(event)">
+      <table>
+         <caption>Drag & Drop</caption>
+         <tbody>
+            <tr>
+               <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+               <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            </tr>
+            <tr>
+               <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+               <td ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+            </tr>
+         </tbody>
+      </table>
+	<script>
+     
+      var curEv;
+     
+         function allowDrop(ev) {
+            ev.preventDefault();
+         }
+
+         function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+         ev.dataTransfer.setData("src", ev.target.src);
+         curEv = ev;
+       }
+
+         function drop(ev) {
+            ev.preventDefault();
+            if(ev.target.tagName == "TD"){
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+         } else if(ev.target.tagName == "IMG"){
+            var src = ev.dataTransfer.getData("src");
+            tempEv = ev;
+			curEv.target.src = tempEv.target.src;
+			ev.target.src = src;
+        }
+	}
+    </script>
+   </body>
+</html>
